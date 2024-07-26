@@ -6,10 +6,11 @@ use App\Services\BaseService;
 
 abstract class Controller
 {
-    protected $service;
+    protected $service = null;
 
     public function __construct()
     {
-        $this->service = new $this->service;
+        if($this->service)
+            $this->service = new $this->service;
     }
 }

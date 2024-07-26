@@ -10,7 +10,8 @@
         "filament/spatie-laravel-media-library-plugin": "3.2.57",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "mokhosh/filament-rating": "^1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
