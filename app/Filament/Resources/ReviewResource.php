@@ -33,7 +33,7 @@ class ReviewResource extends Resource
                     ->required()
                     ->maxLength(255),
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->collection('review_images'),
+                    ->collection('review_users'),
                 Forms\Components\Textarea::make('review')
                     ->required()
                     ->columnSpanFull(),
@@ -51,7 +51,7 @@ class ReviewResource extends Resource
                 RatingColumn::make('rating')
                     ->size('sm'),
                 SpatieMediaLibraryImageColumn::make('image')
-                    ->collection('review_images'),
+                    ->collection('review_users'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
