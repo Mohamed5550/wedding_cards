@@ -23,6 +23,9 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                    ->collection('avatars')
+                    ->maxSize(10240),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
