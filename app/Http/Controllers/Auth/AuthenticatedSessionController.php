@@ -37,6 +37,8 @@ class AuthenticatedSessionController extends Controller
         $user = auth("sanctum")->user();
         $user->tokens()->delete();
 
-        return response()->noContent();
+        return response([
+            "message" => __("Logout successful"),
+        ]);
     }
 }

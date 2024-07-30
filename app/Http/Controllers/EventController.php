@@ -27,10 +27,11 @@ class EventController extends Controller
      */
     public function store(CreateEventRequest $request)
     {
-        $event = Event::create($request->all());
+        $event = Event::make($request->all());
         $event->createCustomWeddingCard();
 
         return response([
+            'message' => __("Event created succesfully"),
             'src' => $event->customWeddingCard->toJpeg()->toDataUri()
         ]);
     }

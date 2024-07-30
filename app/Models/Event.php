@@ -29,6 +29,7 @@ class Event extends Model
         'groom_name',
         'bride_family',
         'bride_name',
+        'user_id',
     ];
 
     public function weddingCard()

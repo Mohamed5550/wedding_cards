@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('bride_family');
             $table->string('bride_name');
             $table->foreignId('wedding_card_id')->constrained()->restrictOnDelete()->restrictOnDelete();
+            $table->foreignId('user_id')->constrained()->restrictOnDelete()->restrictOnDelete();
             $table->timestamps();
         });
     }

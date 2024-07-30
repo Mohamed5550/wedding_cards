@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Event;
 use App\Models\Country;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -52,5 +53,10 @@ class User extends Authenticatable  implements MustVerifyEmail
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
     }
 }
