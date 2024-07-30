@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FeatureResource extends JsonResource
+class WeddingCardResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,6 @@ class FeatureResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
             'image' => $this->image,
         ];
     }

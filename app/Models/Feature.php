@@ -16,7 +16,7 @@ class Feature extends Model implements HasMedia
         'subtitle'
     ];
     
-    public function image()
+    public function getImageAttribute()
     {
         return $this->getFirstMediaUrl('features');
     }

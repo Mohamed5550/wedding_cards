@@ -11,7 +11,7 @@ class HomeImage extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
     
-    public function image()
+    public function getImageAttribute()
     {
         return $this->getFirstMediaUrl('home_images');
     }

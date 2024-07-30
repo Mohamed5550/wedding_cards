@@ -17,7 +17,7 @@ class Review extends Model implements HasMedia
         'review'
     ];
 
-    public function image()
+    public function getImageAttribute()
     {
         return $this->getFirstMediaUrl('review_users');
     }
