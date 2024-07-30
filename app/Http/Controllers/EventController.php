@@ -30,7 +30,9 @@ class EventController extends Controller
         $event = Event::create($request->all());
         $event->createCustomWeddingCard();
 
-        return "<img src='{$event->customWeddingCard->toJpeg()->toDataUri()}' />";
+        return response([
+            'src' => $event->customWeddingCard->toJpeg()->toDataUri()
+        ]);
     }
 
 
