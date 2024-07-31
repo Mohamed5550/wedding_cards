@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use ArPHP\I18N\Arabic;
 use App\Models\Invitee;
 use Intervention\Image\Image;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,6 @@ class Event extends Model
     use HasFactory;
 
     public Image $customWeddingCard;
-    protected Arabic $arabicGlyphs;
 
     protected $casts = [
         'time' => 'datetime',
@@ -60,7 +58,6 @@ class Event extends Model
     {
         $this->load('weddingCard');
         $this->customWeddingCard = ImageFacade::read($this->weddingCard->getFirstMediaPath('card_images'));
-        $this->arabicGlyphs = new Arabic('Glyphs');
 
         $this->addFamiliesToCard();
         $this->addNamesToCard();
@@ -78,7 +75,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->groom_family_position_x,
             position_y: $this->weddingCard->groom_family_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->groom_family),
+            text: $this->groom_family,
             font_path: $this->weddingCard->familiesFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->families_font_size,
             color: $this->weddingCard->families_color
@@ -92,7 +89,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->bride_family_position_x,
             position_y: $this->weddingCard->bride_family_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->bride_family),
+            text: $this->bride_family,
             font_path: $this->weddingCard->familiesFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->families_font_size,
             color: $this->weddingCard->families_color
@@ -106,7 +103,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->names_position_x,
             position_y: $this->weddingCard->names_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->groom_name . ' و' . $this->bride_name),
+            text: $this->groom_name . ' و' . $this->bride_name,
             font_path: $this->weddingCard->namesFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->names_font_size,
             color: $this->weddingCard->names_color
@@ -127,7 +124,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->time_position_x,
             position_y: $this->weddingCard->time_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->time->format('H:i') . ' ' . ($this->time->format('A') == 'AM' ? 'صباحًا' : 'مساءً')),
+            text: $this->time->format('H:i') . ' ' . ($this->time->format('A') == 'AM' ? 'صباحًا' : 'مساءً'),
             font_path: $this->weddingCard->timeLocationFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->time_location_font_size,
             color: $this->weddingCard->time_location_color,
@@ -142,7 +139,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->date_position_x,
             position_y: $this->weddingCard->date_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->time->format('Y/m/d') . ' ' . $this->time->dayName),
+            text: $this->time->format('Y/m/d') . ' ' . $this->time->dayName,
             font_path: $this->weddingCard->timeLocationFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->time_location_font_size,
             color: $this->weddingCard->time_location_color,
@@ -157,7 +154,7 @@ class Event extends Model
         $interventionText = new InterventionText(
             position_x: $this->weddingCard->location_position_x,
             position_y: $this->weddingCard->location_position_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->location),
+            text: $this->location,
             font_path: $this->weddingCard->timeLocationFont->getFirstMediaPath('fonts'),
             font_size: $this->weddingCard->time_location_font_size,
             color: $this->weddingCard->time_location_color,

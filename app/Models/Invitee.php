@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Event;
-use ArPHP\I18N\Arabic;
 use Intervention\Image\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +17,6 @@ class Invitee extends Model implements HasMedia
 {
     use HasFactory, Notifiable, InteractsWithMedia;
     public Image $weddingCardImage;
-    protected Arabic $arabicGlyphs;
 
     const PENDING = 'pending';
     const SENT = 'sent';
@@ -75,7 +73,6 @@ class Invitee extends Model implements HasMedia
     {
         $this->event->createCustomWeddingCard();
         $this->weddingCardImage = $this->event->customWeddingCard;
-        $this->arabicGlyphs = new Arabic('Glyphs');
         
         $this->addInviteeNameToCard();
         $this->addInviteeQrCodeToCard();
@@ -88,7 +85,7 @@ class Invitee extends Model implements HasMedia
         $interventionText = new InterventionText(
             position_x: $this->event->weddingCard->invitee_x,
             position_y: $this->event->weddingCard->invitee_y,
-            text: $this->arabicGlyphs->utf8Glyphs($this->event->weddingCard->invitee_prefix . " " . $this->name),
+            text: $this->event->weddingCard->invitee_prefix . " " . $this->name,
             font_path: $this->event->weddingCard->inviteeFont->getFirstMediaPath('fonts'),
             font_size: $this->event->weddingCard->invitee_font_size,
             color: $this->event->weddingCard->invitee_color,
@@ -99,10 +96,11 @@ class Invitee extends Model implements HasMedia
 
     protected function addInviteeQrCodeToCard()
     {
-        $qrCode = QrCode::format('png')->size(250)->generate($this->qr_token);
+        $qrCode = QrCode::format('png')->size(180)->generate($this->qr_token);
 
-        dd($qrCode);
-        $this->weddingCardImage->place($qrCode, 'center', $this->event->weddingCard->qr_position_x, $this->event->weddingCard->qr_position_x);
+        $qrCodeImage = ImageFacade::read($qrCode->toHTML());
+
+        $this->weddingCardImage->place($qrCodeImage, 'top-left', $this->event->weddingCard->qr_position_x, $this->event->weddingCard->qr_position_y);
     }
 
     protected function saveInviteeWeddingCard()
