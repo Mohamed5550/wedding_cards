@@ -4,7 +4,7 @@ namespace App\Http\Requests\Event;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateEventRequest extends FormRequest
+class PreviewEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,6 @@ class CreateEventRequest extends FormRequest
             'groom_name' => 'required|string|max:255',
             'bride_family' => 'required|string|max:255',
             'bride_name' => 'required|string|max:255',
-            'invitees_file' => 'required|file|mimes:xlsx,xls,csv|max:2048', 
         ];
     }
 }

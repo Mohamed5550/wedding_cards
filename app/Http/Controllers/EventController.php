@@ -7,8 +7,11 @@ use ArPHP\I18N\Arabic;
 use App\Models\WeddingCard;
 use Illuminate\Http\Request;
 use Intervention\Image\Image;
+use App\Imports\InviteesImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\EventResource;
 use App\Http\Requests\Event\CreateEventRequest;
+use App\Http\Requests\Event\PreviewEventRequest;
 
 class EventController extends Controller
 {
@@ -26,6 +29,15 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreateEventRequest $request)
+    {
+        $event = auth()->user()->events()->create($request->all());
+        
+        Excel::import(new InviteesImport($event->id), $request->file('invitees_file'));
+
+        $event->sendInvites();
+    }
+
+    public function preview(PreviewEventRequest $request)
     {
         $event = Event::make($request->all());
         $event->createCustomWeddingCard();

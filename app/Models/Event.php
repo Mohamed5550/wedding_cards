@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use ArPHP\I18N\Arabic;
+use App\Models\Invitee;
 use Intervention\Image\Image;
 use Illuminate\Database\Eloquent\Model;
-use Intervention\Image\Laravel\Facades\Image as ImageFacade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Intervention\Image\Laravel\Facades\Image as ImageFacade;
 
 class Event extends Model
 {
@@ -32,9 +33,27 @@ class Event extends Model
         'user_id',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function weddingCard()
     {
         return $this->belongsTo(WeddingCard::class);
+    }
+    
+    public function invitees()
+    {
+        return $this->hasMany(Invitee::class);
+    }
+
+    public function sendInvites()
+    {
+        $invitees = $this->invitees()->with('event')->pending()->get();
+        foreach ($invitees as $invitee) {
+            $invitee->sendInvite();
+        }
     }
 
     public function createCustomWeddingCard()
@@ -46,8 +65,6 @@ class Event extends Model
         $this->addFamiliesToCard();
         $this->addNamesToCard();
         $this->addTimeAndLocationToCard();
-
-        // $this->saveCard();
     }
 
     protected function addFamiliesToCard()

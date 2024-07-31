@@ -7,6 +7,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\ProfileController;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Controllers\HomeImageController;
 use App\Http\Controllers\WeddingCardController;
 
@@ -16,9 +17,14 @@ Route::get('/features', [FeatureController::class, 'index']);
 Route::get('/reviews', [ReviewController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/events/preview', [EventController::class, 'preview']);
     Route::apiResource('events', EventController::class);
     Route::get('/wedding-cards', [WeddingCardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
+});
+
+Route::get('/info', function() {
+    return phpinfo();
 });
 
 require __DIR__.'/auth.php';
