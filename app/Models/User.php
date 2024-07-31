@@ -39,6 +39,8 @@ class User extends Authenticatable  implements MustVerifyEmail, HasMedia
         'remember_token',
     ];
 
+    protected $appends = ['image'];
+
     /**
      * Get the attributes that should be cast.
      *
