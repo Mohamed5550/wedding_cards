@@ -35,6 +35,10 @@ class EventController extends Controller
         Excel::import(new InviteesImport($event->id), $request->file('invitees_file'));
 
         $event->sendInvites();
+
+        return response([
+            'message' => __("All invites have been successfully sent")
+        ]);
     }
 
     public function preview(PreviewEventRequest $request)
