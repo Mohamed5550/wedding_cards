@@ -11,4 +11,11 @@ class ProfileController extends Controller
     {
         return ProfileResource::make(null);
     }
+
+    public function user()
+    {
+        return response([
+            'user' => auth()->user()
+        ]);
+    }
 }

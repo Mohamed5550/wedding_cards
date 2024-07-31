@@ -21,6 +21,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('events', EventController::class);
     Route::get('/wedding-cards', [WeddingCardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/user', [ProfileController::class, 'user']);
 });
 
 Route::get('/info', function() {
