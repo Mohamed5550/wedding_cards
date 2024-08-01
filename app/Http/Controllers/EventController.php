@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use ArPHP\I18N\Arabic;
 use App\Enums\EventStatus;
+use App\Http\Requests\Event\AttendRequest;
 use App\Models\WeddingCard;
 use Illuminate\Http\Request;
 use Intervention\Image\Image;
@@ -86,7 +87,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function attend(Event $event, Request $request)
+    public function attend(Event $event, AttendRequest $request)
     {
         if($event->status == EventStatus::NOT_STARTED) {
             return response([
