@@ -88,6 +88,18 @@ class EventController extends Controller
 
     public function attend(Event $event, Request $request)
     {
+        if($event->status == EventStatus::NOT_STARTED) {
+            return response([
+                'message' => __("Event not started yet")
+            ], 400);
+        }
+
+        if($event->status == EventStatus::FINISHED) {
+            return response([
+                'message' => __("Event ended")
+            ], 400);
+        }
+
         $qrCode = $request->qr_code;
 
         $invitee = $event->invitees()->where('qr_token', $qrCode)->first();
