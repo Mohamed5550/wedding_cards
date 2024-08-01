@@ -49,7 +49,7 @@ class EventController extends Controller
         $event->createCustomWeddingCard();
 
         return response([
-            'message' => __("Event created succesfully"),
+            'message' => __("Form sent, you can preview image now"),
             'src' => $event->customWeddingCard->toJpeg()->toDataUri()
         ]);
     }

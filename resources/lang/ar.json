@@ -1,0 +1,16 @@
+{
+    "Login successful": "تم تسجيل الدخول بنجاح",
+    "Logout successful": "تم تسجيل الخروج بنجاح",
+    "User created successfully, please check your email to verify account": "تم إنشاء المستخدم بنجاح، يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك",
+    "All invites have been successfully sent": "تم إرسال جميع الدعوات بنجاح",
+    "Form sent, you can preview image now": "تم إرسال النموذج، يمكنك معاينة الصورة الآن",
+    "Event already started": "الحفل بدأ بالفعل",
+    "Event started successfully": "تم بدأ الحفل بنجاح",
+    "Can't end event": "لا يمكن إنهاء الحفل",
+    "Event ended successfully": "تم إنهاء الحفل بنجاح",
+    "Event not started yet": "الحفل لم يبدأ بعد",
+    "Event ended": "انتهى الحفل",
+    "Invalid QR code": "رمز QR غير صالح",
+    "This user has already attended": "هذا المدعو قد حضر بالفعل",
+    "Invitee marked as attended successfully": "تم تسجيل حضور المدعو بنجاح"
+}
