@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use ArPHP\I18N\Arabic;
+use App\Enums\EventStatus;
 use App\Models\WeddingCard;
 use Illuminate\Http\Request;
 use Intervention\Image\Image;
@@ -49,6 +50,32 @@ class EventController extends Controller
         return response([
             'message' => __("Event created succesfully"),
             'src' => $event->customWeddingCard->toJpeg()->toDataUri()
+        ]);
+    }
+
+    public function start(Event $event)
+    {
+        if($event->status != EventStatus::NOT_STARTED) {
+            return response([
+                'message' => __("Event already started")
+            ], 400);
+        }
+
+        $event->update([
+            'status' => EventStatus::IN_PROGRESS
+        ]);
+    }
+
+    public function end(Event $event)
+    {
+        if($event->status != EventStatus::IN_PROGRESS) {
+            return response([
+                'message' => __("Can't end event")
+            ], 400);
+        }
+
+        $event->update([
+            'status' => EventStatus::FINISHED
         ]);
     }
 

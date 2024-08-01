@@ -25,6 +25,7 @@ class EventResource extends JsonResource
             'bride_name' => $this->bride_name,
             'user_image' => $this->user->image,
             'status' => $this->status->label(),
+            'status_key' => $this->status,
             'invites_count' => $this->invitees()->count(),
         ];
     }

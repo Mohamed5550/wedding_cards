@@ -6,7 +6,7 @@ enum EventStatus: string
 {
     case NOT_STARTED = 'not_started';
     case IN_PROGRESS = 'in_progress';
-    case Finished = 'finished';
+    case FINISHED = 'finished';
 
     public function label(): string
     {
@@ -14,7 +14,7 @@ enum EventStatus: string
         {
             self::NOT_STARTED => 'Not Started',
             self::IN_PROGRESS => 'In Progress',
-            self::Finished => 'Finished'
+            self::FINISHED => 'Finished'
         };
     }
 }
