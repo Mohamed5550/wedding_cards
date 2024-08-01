@@ -57,7 +57,7 @@ class WhatsAppInvitation extends Notification
     public function toWhatsApp($notifiable)
     {
         return (new WhatsAppMessage)
-            ->body("مرحبا " . $notifiable->name . "\n" . "هذه هي رسالة الدعوة الخاصة بك لحفل زفاف " . $notifiable->event->name)
+            ->body("مرحبا " . $notifiable->name . "\n" . "هذه هي رسالة الدعوة الخاصة بك لحفل " . $notifiable->event->name)
             ->mediaUrl($notifiable->card_src);
     }
 }
