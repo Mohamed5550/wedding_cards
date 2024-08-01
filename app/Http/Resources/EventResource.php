@@ -15,6 +15,7 @@ class EventResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'time' => $this->time->format("Y-m-d H:i:s"),
             'location' => $this->location,
@@ -23,7 +24,8 @@ class EventResource extends JsonResource
             'bride_family' => $this->bride_family,
             'bride_name' => $this->bride_name,
             'user_image' => $this->user->image,
-            'invites_count' => '500'
+            'status' => $this->status->label(),
+            'invites_count' => $this->invitees()->count(),
         ];
     }
 }

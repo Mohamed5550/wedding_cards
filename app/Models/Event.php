@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EventStatus;
 use Carbon\Carbon;
 use App\Models\Invitee;
 use Intervention\Image\Image;
@@ -13,10 +14,15 @@ class Event extends Model
 {
     use HasFactory;
 
+    const NOT_STARTED = 'not_started';
+    const IN_PROGRESS = 'in_progress';
+    const FINISHED = 'finished';
+
     public Image $customWeddingCard;
 
     protected $casts = [
         'time' => 'datetime',
+        'status' => EventStatus::class
     ];
 
     protected $fillable = [
