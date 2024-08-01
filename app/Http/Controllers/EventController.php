@@ -23,7 +23,7 @@ class EventController extends Controller
     public function index()
     {
         return response([
-            'events' => EventResource::collection(Event::get())
+            'events' => EventResource::collection(Event::orderBy('created_at', 'desc')->get())
         ]);
     }
 
