@@ -61,8 +61,11 @@ class EventController extends Controller
             ], 400);
         }
 
-        $event->update([
-            'status' => EventStatus::IN_PROGRESS
+        $event->status = EventStatus::IN_PROGRESS;
+        $event->save();
+
+        return response([
+            'message' => __("Event started successfully")
         ]);
     }
 
@@ -74,8 +77,12 @@ class EventController extends Controller
             ], 400);
         }
 
-        $event->update([
-            'status' => EventStatus::FINISHED
+        $event->status = EventStatus::FINISHED;
+        $event->save();
+
+
+        return response([
+            'message' => __("Event ended successfully")
         ]);
     }
 

@@ -18,8 +18,8 @@ Route::get('/reviews', [ReviewController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/events/preview', [EventController::class, 'preview']);
-    Route::get('/events/{event}/start', [EventController::class, 'start']);
-    Route::get('/events/{evemt}/end', [EventController::class, 'end']);
+    Route::patch('/events/{event}/start', [EventController::class, 'start']);
+    Route::patch('/events/{event}/end', [EventController::class, 'end']);
     Route::apiResource('events', EventController::class);
     Route::get('/wedding-cards', [WeddingCardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
