@@ -86,6 +86,32 @@ class EventController extends Controller
         ]);
     }
 
+    public function attend(Event $event, Request $request)
+    {
+        $qrCode = $request->qr_code;
+
+        $invitee = $event->invitees()->where('qr_token', $qrCode)->first();
+
+        if(!$invitee) {
+            return response([
+                'message' => __("Invalid QR code")
+            ], 400);
+        }
+
+        if($invitee->attended_at) {
+            return response([
+                'message' => __("This user has already attended")
+            ], 400);
+        }
+
+        $invitee->attended_at = now();
+        $invitee->save();
+
+        return response([
+            'message' => __("Invitee marked as attended successfully")
+        ]);
+    }
+
 
     /**
      * Display the specified resource.

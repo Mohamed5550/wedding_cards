@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('status')->default(Invitee::PENDING);
-            $table->string('attendance_status')->default(Invitee::NOT_ATTENDED);
+            $table->timestamp('attended_at')->nullable();
             $table->string('qr_token')->unique();
             $table->timestamps();
         });

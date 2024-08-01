@@ -20,6 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/events/preview', [EventController::class, 'preview']);
     Route::patch('/events/{event}/start', [EventController::class, 'start']);
     Route::patch('/events/{event}/end', [EventController::class, 'end']);
+    Route::post('/events/{event}/attend', [EventController::class, 'attend']);
     Route::apiResource('events', EventController::class);
     Route::get('/wedding-cards', [WeddingCardController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
