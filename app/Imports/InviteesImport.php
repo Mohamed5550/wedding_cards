@@ -31,4 +31,12 @@ class InviteesImport implements ToModel, WithHeadingRow
             'qr_token' => $this->eventId . '_' . $row["phone"] . '_' . uniqid()
         ]);
     }
+
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:30',
+        ];
+    }
 }
