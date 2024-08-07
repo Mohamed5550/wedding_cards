@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\InviteeAttendanceStatus;
+use App\Enums\InviteeNotificationStatus;
 use App\Models\Event;
 use Intervention\Image\Image;
 use Illuminate\Database\Eloquent\Model;
@@ -18,20 +20,17 @@ class Invitee extends Model implements HasMedia
     use HasFactory, Notifiable, InteractsWithMedia;
     public Image $weddingCardImage;
 
-    const PENDING = 'pending';
-    const SENT = 'sent';
-    const FAILED = 'failed';
-
-    const ATTENDED = 'attended';
-    const NOT_ATTENDED = 'not_attended';
-
     protected $fillable = [
         'event_id',
         'name',
         'phone',
         'status',
-        'attendance_status',
         'qr_token'
+    ];
+
+    protected $casts = [
+        'time' => 'datetime',
+        'status' => InviteeNotificationStatus::class,
     ];
 
     public function getInviteCardAttribute()
@@ -55,13 +54,17 @@ class Invitee extends Model implements HasMedia
 
     public function scopePending($query)
     {
-        return $query->where('status', self::PENDING);
+        return $query->where('status', InviteeNotificationStatus::PENDING);
     }
 
     public function sendInvite()
     {
-        $this->notify(new WhatsAppInvitation());
-        $this->update(['status' => self::SENT]);
+        try {
+            $this->notify(new WhatsAppInvitation());
+            $this->update(['status' => InviteeNotificationStatus::SENT]);
+        } catch (\Exception $e) {
+            $this->update(['status' => InviteeNotificationStatus::FAILED]);
+        }
     }
 
     public function routeNotificationForWhatsApp()

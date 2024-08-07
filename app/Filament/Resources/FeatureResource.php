@@ -21,16 +21,29 @@ class FeatureResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __("Feature");
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __("Features");
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('image')
+                    ->label(__("Image"))
                     ->collection('features'),
                 Forms\Components\TextInput::make('title')
+                    ->label(__("Title"))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('subtitle')
+                    ->label(__("Subtitle"))
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -41,14 +54,18 @@ class FeatureResource extends Resource
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')
+                ->label(__("Image"))
                     ->collection('features'),
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__("Title"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Created at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Updated at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

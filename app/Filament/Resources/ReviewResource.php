@@ -12,12 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Mokhosh\FilamentRating\Components\Rating;
 use App\Filament\Resources\ReviewResource\Pages;
 use Mokhosh\FilamentRating\Columns\RatingColumn;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use IbrahimBougaoua\FilamentRatingStar\Actions\RatingStar;
-use App\Filament\Resources\ReviewResource\RelationManagers;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use IbrahimBougaoua\FilamentRatingStar\Columns\RatingStarColumn;
 
 class ReviewResource extends Resource
 {
@@ -25,20 +21,33 @@ class ReviewResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __("Review");
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __("Reviews");
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__("Name"))
                     ->required()
                     ->maxLength(255),
                 SpatieMediaLibraryFileUpload::make('image')
+                    ->label(__("Image"))
                     ->collection('review_users'),
                 Forms\Components\Textarea::make('review')
+                    ->label(__("Review"))
                     ->required()
                     ->columnSpanFull(),
                 Rating::make('rating')
-                    ->label('Rating')
+                    ->label(__("Rating"))
             ]);
     }
 
@@ -47,16 +56,21 @@ class ReviewResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__("Name"))
                     ->searchable(),
                 RatingColumn::make('rating')
+                    ->label(__("Rating"))
                     ->size('sm'),
                 SpatieMediaLibraryImageColumn::make('image')
+                    ->label(__("Image"))
                     ->collection('review_users'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Created at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Updated at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

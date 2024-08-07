@@ -22,11 +22,22 @@ class HomeImageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __("Image");
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __("Home images");
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('image')
+                    ->label(__("Image"))
                     ->collection('home_images'),
             ]);
     }
@@ -36,14 +47,17 @@ class HomeImageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Create at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Updated at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 SpatieMediaLibraryImageColumn::make('image')
+                    ->label(__("Image"))
                     ->collection('home_images'),
             ])
             ->filters([
