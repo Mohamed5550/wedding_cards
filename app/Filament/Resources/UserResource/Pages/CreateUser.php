@@ -17,4 +17,9 @@ class CreateUser extends CreateRecord
 
         return static::getModel()::create($data);
     }
+
+    protected function afterCreate(): void
+    {
+        $this->record->assignRole('employee');
+    }
 }

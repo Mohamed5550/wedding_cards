@@ -19,6 +19,7 @@
         "mokhosh/filament-rating": "^1.1",
         "outerweb/filament-settings": "^1.2",
         "simplesoftwareio/simple-qrcode": "~4",
+        "spatie/laravel-permission": "^6.9",
         "twilio/sdk": "^8.2"
     },
     "require-dev": {

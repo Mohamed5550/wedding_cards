@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
+use Filament\Panel;
 use App\Models\Event;
 use App\Models\Country;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable  implements MustVerifyEmail, HasMedia
+class User extends Authenticatable  implements MustVerifyEmail, HasMedia, FilamentUser
 {
-    use HasFactory, Notifiable, HasApiTokens, InteractsWithMedia;
+    use HasFactory, Notifiable, HasApiTokens, InteractsWithMedia, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -68,5 +71,10 @@ class User extends Authenticatable  implements MustVerifyEmail, HasMedia
     public function getImageAttribute()
     {
         return $this->getFirstMediaUrl('avatars');
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasRole('admin');
     }
 }
