@@ -19,8 +19,8 @@ class SettingsResource extends JsonResource
         return [
             'app_name' => setting('general.app_name'),
             'app_description' => setting('general.app_description'),
-            'app_logo' => '/storage/' . setting('general.app_logo'),
-            'excel_template_link' => asset('storage/' . setting('general.excel_template'))
+            'app_logo' => asset('storage/' . setting('general.app_logo')),
+            'excel_template_link' => '/storage/' . setting('general.excel_template')
         ];
     }
 }
