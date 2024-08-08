@@ -26,9 +26,9 @@ class PreviewEventRequest extends FormRequest
             'wedding_card_id' => 'required|exists:wedding_cards,id',
             'time' => 'required|date_format:Y-m-d H:i:s',
             'location' => 'required|string|max:255',
-            'groom_family' => 'required|string|max:255',
+            'groom_family' => 'nullable|string|max:255',
             'groom_name' => 'required|string|max:255',
-            'bride_family' => 'required|string|max:255',
+            'bride_family' => 'nullable|string|max:255',
             'bride_name' => 'required|string|max:255',
         ];
     }
