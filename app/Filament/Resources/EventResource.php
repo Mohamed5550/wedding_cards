@@ -59,7 +59,7 @@ class EventResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->default('not_started'),
-                Forms\Components\FieldSet::make('wedding_card')
+                Forms\Components\Fieldset::make('wedding_card')
                     ->relationship('weddingCard')
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('image')
