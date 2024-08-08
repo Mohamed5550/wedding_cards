@@ -13,7 +13,7 @@ class InviteeCountWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Invites', \App\Models\Invitee::count()),
+            Stat::make(__("Total Invites"), \App\Models\Invitee::count()),
         ];
     }
 

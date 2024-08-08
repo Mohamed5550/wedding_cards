@@ -112,5 +112,7 @@
     "Event": "حفل",
     "Events": "الحفلات",
     "Invitees count": "عدد المدعوين",
-    "Attendees count": "عدد الحضور"
+    "Attendees count": "عدد الحضور",
+    "Total Events": "عدد الحفلات",
+    "Total Invites": "عدد الدعوات"
 }

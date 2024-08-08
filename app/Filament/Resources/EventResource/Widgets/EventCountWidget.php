@@ -13,7 +13,7 @@ class EventCountWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Events', \App\Models\Event::count()),
+            Stat::make(__("Total Events"), \App\Models\Event::count()),
         ];
     }
 
