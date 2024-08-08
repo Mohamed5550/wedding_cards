@@ -2,26 +2,23 @@
 
 namespace App\Filament\Pages;
 
-use App\Models\Event;
-use Filament\Pages\Page;
-use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Widgets\StatsOverviewWidget\Stat;
-
-class Dashboard extends BaseDashboard
+use App\Filament\Resources\UserResource\Widgets\AccountWidget;
+use App\Filament\Resources\EventResource\Widgets\EventCountWidget;
+use App\Filament\Resources\InviteeResource\Widgets\InviteeCountWidget;
+ 
+class Dashboard extends \Filament\Pages\Dashboard
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
-    protected static string $view = 'filament.pages.dashboard';
-
-    public function getStats(): array
+    public function getWidgets(): array
     {
-        dd('aa');
         return [
-            Stat::make(
-                label: __("Total events"),
-                value: Event::count(),
-            ),
-            // ...
+            AccountWidget::class,
+            EventCountWidget::class,
+            InviteeCountWidget::class
         ];
+    }
+
+    public function getColumns(): int | string | array
+    {
+        return 2;
     }
 }
