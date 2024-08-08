@@ -35,13 +35,15 @@ class Settings extends BaseSettings
                             Textarea::make('general.app_description')
                                 ->label(__("App description"))
                                 ->required(),
-                            SpatieMediaLibraryFileUpload::make('general.app_logo')
+                            FileUpload::make('general.app_logo')
                                 ->label(__("App logo"))
+                                ->directory('settings')
                                 ->required()
                                 ->default(asset('storage/' . setting('general.app_logo')))
                                 ->image(),
-                            SpatieMediaLibraryFileUpload::make('general.excel_template')
+                            FileUpload::make('general.excel_template')
                                 ->label(__("Excel template"))
+                                ->directory('settings')
                                 ->required(),
                         ]),
                     
@@ -53,8 +55,9 @@ class Settings extends BaseSettings
                             TextArea::make('home.subtitle')
                                 ->label(__("Home subtitle"))
                                 ->required(),
-                            SpatieMediaLibraryFileUpload::make('home.background')
+                            FileUpload::make('home.background')
                                 ->label(__("Home background"))
+                                ->directory('settings')
                                 ->image()
                                 ->required(),
                             TextArea::make('home.why_choose_us_text')

@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FeatureController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Controllers\HomeImageController;
@@ -15,6 +16,8 @@ Route::get('/countries', [CountryController::class, 'index']);
 Route::get('/home-images', [HomeImageController::class, 'index']);
 Route::get('/features', [FeatureController::class, 'index']);
 Route::get('/reviews', [ReviewController::class, 'index']);
+Route::get('/settings', [GeneralController::class, 'getSettings']);
+Route::get('/home-data', [GeneralController::class, 'getHomeData']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/events/preview', [EventController::class, 'preview']);
