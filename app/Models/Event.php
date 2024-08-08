@@ -54,9 +54,12 @@ class Event extends Model
 
     public function sendInvites()
     {
-        $invitees = $this->invitees()->with('event')->pending()->get();
+        // added here instead of in invitee to inhance performance
+        $this->createCustomWeddingCard();
+
+        $invitees = $this->invitees()->pending()->get();
         foreach ($invitees as $invitee) {
-            $invitee->sendInvite();
+            $invitee->sendInvite($this);
         }
     }
 

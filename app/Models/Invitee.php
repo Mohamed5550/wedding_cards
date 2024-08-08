@@ -19,6 +19,7 @@ class Invitee extends Model implements HasMedia
 {
     use HasFactory, Notifiable, InteractsWithMedia;
     public Image $weddingCardImage;
+    protected Event $eventWithImage;
 
     protected $fillable = [
         'event_id',
@@ -79,8 +80,9 @@ class Invitee extends Model implements HasMedia
         return $query->whereNull('attended_at');
     }
 
-    public function sendInvite()
+    public function sendInvite(Event $event)
     {
+        $this->eventWithImage = $event;
         try {
             $this->notify(new WhatsAppInvitation());
             $this->update(['status' => InviteeNotificationStatus::SENT]);
@@ -96,8 +98,7 @@ class Invitee extends Model implements HasMedia
 
     public function createInviteeWeddingCard()
     {
-        $this->event->createCustomWeddingCard();
-        $this->weddingCardImage = $this->event->customWeddingCard;
+        $this->weddingCardImage = $this->eventWithImage->customWeddingCard;
         
         $this->addInviteeNameToCard();
         $this->addInviteeQrCodeToCard();
@@ -105,15 +106,15 @@ class Invitee extends Model implements HasMedia
 
     protected function addInviteeNameToCard()
     {
-        if(!$this->event->weddingCard->has_invitee) return;
+        if(!$this->eventWithImage->weddingCard->has_invitee) return;
 
         $interventionText = new InterventionText(
-            position_x: $this->event->weddingCard->invitee_x,
-            position_y: $this->event->weddingCard->invitee_y,
-            text: $this->event->weddingCard->invitee_prefix . " " . $this->name,
-            font_path: $this->event->weddingCard->inviteeFont->getFirstMediaPath('fonts'),
-            font_size: $this->event->weddingCard->invitee_font_size,
-            color: $this->event->weddingCard->invitee_color,
+            position_x: $this->eventWithImage->weddingCard->invitee_x,
+            position_y: $this->eventWithImage->weddingCard->invitee_y,
+            text: $this->eventWithImage->weddingCard->invitee_prefix . " " . $this->name,
+            font_path: $this->eventWithImage->weddingCard->inviteeFont->getFirstMediaPath('fonts'),
+            font_size: $this->eventWithImage->weddingCard->invitee_font_size,
+            color: $this->eventWithImage->weddingCard->invitee_color,
         );
 
         $interventionText->applyTextToImage($this->weddingCardImage);
@@ -125,7 +126,7 @@ class Invitee extends Model implements HasMedia
 
         $qrCodeImage = ImageFacade::read($qrCode->toHTML());
 
-        $this->weddingCardImage->place($qrCodeImage, 'top-left', $this->event->weddingCard->qr_position_x, $this->event->weddingCard->qr_position_y);
+        $this->weddingCardImage->place($qrCodeImage, 'top-left', $this->eventWithImage->weddingCard->qr_position_x, $this->eventWithImage->weddingCard->qr_position_y);
     }
 
     protected function saveInviteeWeddingCard()
