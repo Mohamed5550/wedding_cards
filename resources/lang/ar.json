@@ -110,5 +110,7 @@
     "Notification status": "حالة الرسالة",
     "Attended at": "تاريخ الحضور",
     "Event": "حفل",
-    "Events": "الحفلات"
+    "Events": "الحفلات",
+    "Invitees count": "عدد المدعوين",
+    "Attendees count": "عدد الحضور"
 }

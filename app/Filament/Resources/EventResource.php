@@ -95,9 +95,16 @@ class EventResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label(__("Status"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user_id')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label(__("User"))
-                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('invitees_count')
+                    ->label(__("Invitees count"))
+                    ->state(fn(Event $event) => $event->invitees()->sent()->count())
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('attendees_count')
+                    ->label(__("Attendees count"))
+                    ->state(fn(Event $event) => $event->invitees()->attended()->count())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Created at"))

@@ -57,6 +57,26 @@ class Invitee extends Model implements HasMedia
         return $query->where('status', InviteeNotificationStatus::PENDING);
     }
 
+    public function scopeFailed($query)
+    {
+        return $query->where('status', InviteeNotificationStatus::FAILED);
+    }
+    
+    public function scopeSent($query)
+    {
+        return $query->where('status', InviteeNotificationStatus::SENT);
+    }
+
+    public function scopeAttended($query)
+    {
+        return $query->whereNotNull('attended_at');
+    }
+
+    public function scopeNotAttended($query)
+    {
+        return $query->whereNull('attended_at');
+    }
+
     public function sendInvite()
     {
         try {
