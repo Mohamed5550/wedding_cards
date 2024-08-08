@@ -49,6 +49,8 @@ class Invitee extends Model implements HasMedia
 
         $this->saveInviteeWeddingCard();
 
+        $this->destroyWeddingCard();
+
         return $this->inviteCard;
     }
 
@@ -132,5 +134,10 @@ class Invitee extends Model implements HasMedia
         $this->addMediaFromString($this->weddingCardImage->toJpeg(90))
             ->usingFileName($fileName)
             ->toMediaCollection('invite_cards');
+    }
+
+    protected function destroyWeddingCard()
+    {
+        unset($this->weddingCardImage);
     }
 }

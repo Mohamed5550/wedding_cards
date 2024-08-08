@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Enums\InviteeNotificationStatus;
 use App\Models\Invitee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -26,7 +27,7 @@ class InviteesImport implements ToModel, WithHeadingRow
         return new Invitee([
             'name' => $row["name"],
             'phone' => $row["phone"],
-            'status' => Invitee::PENDING,
+            'status' => InviteeNotificationStatus::PENDING,
             'event_id' => $this->eventId,
             'qr_token' => $this->eventId . '_' . $row["phone"] . '_' . uniqid()
         ]);
